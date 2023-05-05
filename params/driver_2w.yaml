@@ -1,0 +1,30 @@
+/mini_driver:
+  ros__parameters:
+    base_frame: base_footprint
+    baud_rate: 115200
+    control_rate: 10
+    encoder_resolution: 44.0
+    kd: 30
+    ki: 0
+    kp: 25
+    maximum_encoding: 100.0
+    model_param_acw: 0.21
+    model_param_cw: 0.21
+    odom_frame: odom
+    port_name: /dev/mycar
+    qos_overrides:
+      /parameter_events:
+        publisher:
+          depth: 1000
+          durability: volatile
+          history: keep_last
+          reliability: reliable
+      /tf:
+        publisher:
+          depth: 100
+          durability: volatile
+          history: keep_last
+          reliability: reliable
+    reduction_ratio: 90.0
+    use_sim_time: false
+    wheel_diameter: 0.065
