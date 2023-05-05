@@ -18,6 +18,8 @@ ll /dev/ttyUSB*
 crw-rw---- 1 root dialout 166, 0  4月 27 20:15 /dev/ttyUSB0
 ```
 
+PS：如果物理连接无异常，Ubuntu系统显示`无法访问 ‘/dev/ttyUSB‘: 没有那个文件或目录`，那么可能是brltty驱动占用导致的，可以运行`sudo apt remove brltty `然后重新插拔一下设备即可解决问题。
+
 #### 2.软件安装
 
 将此软件包下载到你的ROS2工作空间下的src目录。
