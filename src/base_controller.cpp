@@ -57,6 +57,7 @@ MiniDriver::MiniDriver() : Node("mini_driver"), parse_flag_(false), start_flag_(
 MiniDriver::~MiniDriver() {
   mutex_.lock();
   parse_flag_ = false;
+  SpeedCommand(0,0);
   if (port_) {
     port_->cancel();
     port_->close();
@@ -294,6 +295,18 @@ void MiniDriver::TwistHandleCallback(const geometry_msgs::msg::Twist& msg) {
   twist_mutex_.unlock();
 }
 
+void MiniDriver::SpeedCommand(short left,short right){
+  uint8_t data[12] = {0xfc, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xdf};
+  data[2] = data[6] = (left >> 8) & 0xff;
+  data[3] = data[7] = left & 0xff;
+  data[4] = data[8] = (right >> 8) & 0xff;
+  data[5] = data[9] = right & 0xff;
+  for (int i = 0; i < 10; i++) {
+    data[10] ^= data[i];
+  }
+  boost::asio::write(*port_.get(), boost::asio::buffer(data, 12), ec_);
+}
+
 void MiniDriver::SendTimerCallback() {
   double left_d, right_d, radio;
   double model_param;
@@ -322,15 +335,8 @@ void MiniDriver::SendTimerCallback() {
   left = static_cast<short>(left_d / radio);
   right = static_cast<short>(right_d / radio);
 
-  uint8_t data[12] = {0xfc, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xdf};
-  data[2] = data[6] = (left >> 8) & 0xff;
-  data[3] = data[7] = left & 0xff;
-  data[4] = data[8] = (right >> 8) & 0xff;
-  data[5] = data[9] = right & 0xff;
-  for (int i = 0; i < 10; i++) {
-    data[10] ^= data[i];
-  }
-  boost::asio::write(*port_.get(), boost::asio::buffer(data, 12), ec_);
+  SpeedCommand(left,right);
+  
 }
 
 void MiniDriver::Pid(){

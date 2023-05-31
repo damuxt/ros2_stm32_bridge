@@ -42,7 +42,7 @@ class MiniDriver : public rclcpp::Node {
   void HandleEncodeMessage(short left_encode, short right_encode);
   void TwistHandleCallback(const geometry_msgs::msg::Twist & msg);
   void SendTimerCallback();
-
+  void SpeedCommand(short left,short right);
 
   std::string PrintHex(uint8_t* data, int length) {
     std::stringstream ss;
