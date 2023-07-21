@@ -26,6 +26,8 @@ PS：如果物理连接无异常，Ubuntu系统显示`无法访问 ‘/dev/ttyUS
 
 #### 3.环境配置
 
+##### 3.1端口映射
+
 终端下进入`ros2_stm32_bridge/scripts`,并执行指令：
 
 ```
@@ -43,6 +45,20 @@ ll /dev | grep -i ttyUSB
 ```
 lrwxrwxrwx   1 root root           7  4月 27 20:16 mycar -> ttyUSB0
 crwxrwxrwx   1 root dialout 166,   0  4月 27 20:16 ttyUSB0
+```
+
+##### 3.2设置车辆类型
+
+修改上位机用户目录下的 .bashrc 文件，在该文件中设置车辆类型，如果你使用的是两轮差速底盘，则添加如下语句：
+
+```
+export MYCAR_MODEL=stm32_2w
+```
+
+如果你使用的是四轮差速底盘，则添加如下语句：
+
+```
+export MYCAR_MODEL=stm32_4w
 ```
 
 #### 4.构建功能包
