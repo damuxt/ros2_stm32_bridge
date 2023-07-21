@@ -101,7 +101,7 @@ void MiniDriver::ParseMessage() {
         boost::asio::read(*port_.get(), boost::asio::buffer(&buffer_data[0], 1), ec_);
         if (buffer_data[0] == 0xfc) {
           check_num = 0xfc;
-          status = TYPE;
+          status = TYPE; 
         }
         break;
 
@@ -165,15 +165,15 @@ void MiniDriver::DistributeMessage(MessageType type, uint8_t* payload) {
     imu_msg_flag_[0] = true;
     CheckAndPublishImu();
   } else if (type == ACCELERATION) {
-    imu_msg_.linear_acceleration.x = (int16_t)((payload[0] << 8 & 0xff00) | (payload[1] & 0x00ff)) * 0.98;
-    imu_msg_.linear_acceleration.y = (int16_t)((payload[2] << 8 & 0xff00) | (payload[3] & 0x00ff)) * 0.98;
-    imu_msg_.linear_acceleration.z = (int16_t)((payload[4] << 8 & 0xff00) | (payload[5] & 0x00ff)) * 0.98;
+    imu_msg_.linear_acceleration.x = (int16_t)((payload[0] << 8 & 0xff00) | (payload[1] & 0x00ff)) * 0.1;
+    imu_msg_.linear_acceleration.y = (int16_t)((payload[2] << 8 & 0xff00) | (payload[3] & 0x00ff)) * 0.1;
+    imu_msg_.linear_acceleration.z = (int16_t)((payload[4] << 8 & 0xff00) | (payload[5] & 0x00ff)) * 0.1;
     imu_msg_flag_[1] = true;
     CheckAndPublishImu();
   } else if (type == ORIENTATION) {
     tf2::Quaternion quaternion;
     quaternion.setRPY((int16_t)((payload[0] << 8 & 0xff00) | (payload[1] & 0x00ff)) * 0.001744444,
-                      (int16_t)((payload[2] << 8 & 0xff00) | (payload[3] & 0x00ff)) * 0.001744444,
+                      -(int16_t)((payload[2] << 8 & 0xff00) | (payload[3] & 0x00ff)) * 0.001744444,
                       (int16_t)((payload[4] << 8 & 0xff00) | (payload[5] & 0x00ff)) * 0.001744444);
     imu_msg_.orientation.x = quaternion.getX();
     imu_msg_.orientation.y = quaternion.getY();

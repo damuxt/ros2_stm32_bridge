@@ -132,16 +132,11 @@ colcon build --packages-select ros2_stm32_bridge
 
 #### 2.启动launch文件
 
-工作空间下，如果是两轮差速底盘调用如下指令启动launch文件：
+工作空间下，调用如下指令启动launch文件：
 
 ```
-ros2 launch ros2_stm32_bridge driver_2w.launch.py
-```
-
-如果是四轮差速底盘调用如下指令启动launch文件：
-
-```
-ros2 launch ros2_stm32_bridge driver_4w.launch.py
+. install/setup.bash
+ros2 launch ros2_stm32_bridge driver.launch.py
 ```
 
 #### 3.控制底盘运动
