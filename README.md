@@ -73,9 +73,9 @@ colcon build --packages-select ros2_stm32_bridge
 
 #### 1.配置参数
 
-在功能包下提供了机器人底盘相关参数的配置文件`ros2_stm32_bridge/params`，`driver_2w.yaml`为两轮差速底盘的配置文件,`driver_4w.yaml`为四轮差速底盘的配置文件，参数内容可以自行修改（如果是初次使用，建议使用默认）。
+在功能包下提供了机器人底盘相关参数的配置文件`ros2_stm32_bridge/params`，`stm32_2w.yaml`为两轮差速底盘的配置文件,`stm32_4w.yaml`为四轮差速底盘的配置文件，参数内容可以自行修改（如果是初次使用，建议使用默认）。
 
-`driver_2w.yaml`的文件内容如下：
+`stm32_2w.yaml`的文件内容如下：
 
 ```
 /mini_driver:
@@ -111,7 +111,7 @@ colcon build --packages-select ros2_stm32_bridge
 
 ```
 
-`driver_4w.yaml`的文件内容如下：
+`stm32_4w.yaml`的文件内容如下：
 
 ```
 /mini_driver:
